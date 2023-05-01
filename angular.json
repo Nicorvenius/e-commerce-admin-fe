@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "demo3": {
+    "e-commerce": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/demo3",
+            "outputPath": "dist/e-commerce",
             "allowedCommonJsDependencies": [
               "object-path",
               "apexcharts",
@@ -79,10 +79,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "demo3:build:production"
+              "browserTarget": "e-commerce:build:production"
             },
             "development": {
-              "browserTarget": "demo3:build:development"
+              "browserTarget": "e-commerce:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -90,7 +90,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "demo3:build"
+            "browserTarget": "e-commerce:build"
           }
         },
         "test": {
@@ -124,7 +124,7 @@
       }
     }
   },
-  "defaultProject": "demo3",
+  "defaultProject": "e-commerce",
   "cli": {
     "defaultCollection": "@angular-eslint/schematics",
     "analytics": false

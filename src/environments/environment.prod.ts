@@ -3,7 +3,7 @@ export const environment = {
   apiURL: 'https://e-commerce-5jch.onrender.com/api/',
   // apiURL: 'http://localhost:3000/api/',
   // socketIoUrl: 'https://api.diststudy.dev/chat'
-  socketIoUrl: 'http://localhost:3000/chat',g
+  socketIoUrl: 'http://localhost:3000/chat',
   AUTH_API_VERSION: 1,
   appPurchaseUrl: '',
   appThemeName: 'ecommerce',
