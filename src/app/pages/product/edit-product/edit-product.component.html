@@ -1,0 +1,266 @@
+<div id="kt_app_content_container" class="app-container container-xxl">
+  <!--begin::Form-->
+  <form id="kt_ecommerce_add_product_form" class="form d-flex flex-column flex-lg-row" (ngSubmit)="saveChanges()" [formGroup]="formGroup">
+    <!--begin::Aside column-->
+    <div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
+      <!--begin::Thumbnail settings-->
+      <div class="card card-flush py-4">
+        <!--begin::Card header-->
+        <div class="card-header">
+          <!--begin::Card title-->
+          <div class="card-title">
+            <h2>Thumbnail</h2>
+          </div>
+          <!--end::Card title-->
+        </div>
+        <!--end::Card header-->
+        <!--begin::Card body-->
+        <div class="card-body text-center pt-0">
+          <div class="image-input image-input-empty image-input-outline image-input-placeholder mb-3" [ngStyle]="{'background-image': 'url(' + formGroup.get('photo')?.value + ')'}">
+            <!--begin::Preview existing avatar-->
+            <div class="image-input-wrapper w-150px h-150px"></div>
+            <!--end::Preview existing avatar-->
+            <!--begin::Label-->
+            <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
+              <i class="ki-duotone ki-pencil fs-7">
+                <span class="path1"></span>
+                <span class="path2"></span>
+              </i>
+              <!--begin::Inputs-->
+              <input type="file" (change)="uploadPhoto($event)" name="avatar" accept=".png, .jpg, .jpeg" />
+              <input type="hidden" name="avatar_remove" />
+              <!--end::Inputs-->
+            </label>
+            <!--end::Label-->
+            <!--begin::Cancel-->
+            <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel avatar">
+															<i class="ki-duotone ki-cross fs-2">
+																<span class="path1"></span>
+																<span class="path2"></span>
+															</i>
+														</span>
+            <!--end::Cancel-->
+            <!--begin::Remove-->
+            <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Remove avatar">
+															<i class="ki-duotone ki-cross fs-2">
+																<span class="path1"></span>
+																<span class="path2"></span>
+															</i>
+														</span>
+            <!--end::Remove-->
+          </div>
+          <!--end::Image input-->
+          <!--begin::Description-->
+          <div class="text-muted fs-7">Set the product thumbnail image. Only *.png, *.jpg and *.jpeg image files are accepted</div>
+          <!--end::Description-->
+        </div>
+        <!--end::Card body-->
+      </div>
+      <div class="card card-flush py-4">
+        <!--begin::Card header-->
+        <div class="card-header">
+          <div class="card-title">
+            <h2>Product Details</h2>
+          </div>
+        </div>
+        <div class="card-body pt-0">
+
+          <label class="form-label">Categories</label>
+
+            <mat-select formControlName="category" class="form-select" multiple [compareWith]="CompareCity">
+              <mat-option *ngFor="let category of categories" [value]="category.id">{{category.name}}</mat-option>
+            </mat-select>
+
+          <div class="text-muted fs-7 mb-7">Add product to a category.</div>
+
+<!--          <span (click)="openCreateCategoryModal()" class="btn btn-light-primary btn-sm mb-10">-->
+<!--            <i class="ki-duotone ki-plus fs-2"></i>Create new category</span>-->
+        </div>
+        <!--end::Card body-->
+      </div>
+    </div>
+    <div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
+      <div class="tab-content">
+        <!--begin::Tab pane-->
+        <div class="tab-pane fade show active" id="kt_ecommerce_add_product_general" role="tab-panel">
+          <div class="d-flex flex-column gap-7 gap-lg-10">
+            <!--begin::General options-->
+            <div class="card card-flush py-4">
+              <!--begin::Card header-->
+              <div class="card-header">
+                <div class="card-title">
+                  <h2>General</h2>
+                </div>
+              </div>
+              <!--end::Card header-->
+              <!--begin::Card body-->
+              <div class="card-body pt-0">
+                <!--begin::Input group-->
+                <div class="mb-10 fv-row">
+                  <!--begin::Label-->
+                  <label class="required form-label">Product Name</label>
+                  <!--end::Label-->
+                  <!--begin::Input-->
+                  <input type="text" name="product_name" formControlName="name" class="form-control mb-2" placeholder="Product name" value="" />
+                  <!--end::Input-->
+                  <!--begin::Description-->
+                  <div class="text-muted fs-7">A product name is required and recommended to be unique.</div>
+                  <!--end::Description-->
+                </div>
+              </div>
+            </div>
+
+            <div class="card card-flush py-4">
+              <!--begin::Card header-->
+              <div class="card-header">
+                <div class="card-title">
+                  <h2>Pricing</h2>
+                </div>
+              </div>
+              <!--end::Card header-->
+              <!--begin::Card body-->
+              <div class="card-body pt-0">
+                <!--begin::Input group-->
+                <div class="mb-10 fv-row">
+                  <!--begin::Label-->
+                  <label class="required form-label">Base Price</label>
+                  <!--end::Label-->
+                  <!--begin::Input-->
+                  <input type="text" name="price" formControlName="price" class="form-control mb-2" placeholder="Product price" value="" />
+                  <!--end::Input-->
+                  <!--begin::Description-->
+                  <div class="text-muted fs-7">Set the product price.</div>
+                  <!--end::Description-->
+                </div>
+                <!--end:Tax-->
+              </div>
+              <!--end::Card header-->
+            </div>
+            <!--end::Pricing-->
+
+            <div class="card card-flush py-4">
+              <!--begin::Card header-->
+              <div class="card-header">
+                <div class="card-title">
+                  <h2>Properties</h2>
+                </div>
+              </div>
+              <!--end::Card header-->
+              <!--begin::Card body-->
+              <div class="card-body pt-0">
+                <!--begin::Input group-->
+                <div class="mb-10 fv-row">
+                  <!--begin::Label-->
+                  <label class="required form-label">Size</label>
+                  <!--end::Label-->
+                  <!--begin::Input-->
+                  <input type="text" name="size" formControlName="size" class="form-control mb-2" placeholder="Product size" value="" />
+                  <!--end::Input-->
+                  <!--begin::Description-->
+                  <div class="text-muted fs-7">Set the product page count.</div>
+                  <!--end::Description-->
+                </div>
+                <div class="mb-10 fv-row">
+                  <!--begin::Label-->
+                  <label class="required form-label">Language</label>
+                  <!--end::Label-->
+                  <!--begin::Input-->
+                  <input type="text" name="language" formControlName="language" class="form-control mb-2" placeholder="Product language" value="" />
+                  <!--end::Input-->
+                  <!--begin::Description-->
+                  <div class="text-muted fs-7">Set the book language.</div>
+                  <!--end::Description-->
+                </div>
+                <div class="mb-10 fv-row">
+                  <!--begin::Label-->
+                  <label class="required form-label">Year</label>
+                  <!--end::Label-->
+                  <!--begin::Input-->
+                  <input type="text" name="year" formControlName="year" class="form-control mb-2" placeholder="Product year" value="" />
+                  <!--end::Input-->
+                  <!--begin::Description-->
+                  <div class="text-muted fs-7">Set the book year.</div>
+                  <!--end::Description-->
+                </div>
+                <!--end:Tax-->
+              </div>
+              <!--end::Card header-->
+            </div>
+
+            <div class="card card-flush py-4">
+              <!--begin::Card header-->
+              <div class="card-header">
+                <div class="card-title">
+                  <h2>Attributes</h2>
+                  <span (click)="openCreateCategoryModal()" class="btn btn-sm btn-light-primary">
+                        <i class="ki-duotone ki-plus fs-2"></i>Create new attribute</span>
+                </div>
+              </div>
+              <!--end::Card header-->
+              <!--begin::Card body-->
+              <div class="card-body pt-0">
+                <!--begin::Input group-->
+                <div>
+                  <!--begin::Label-->
+                  <label class="form-label">Add Product Attributes</label>
+                  <!--end::Label-->
+                  <!--begin::Repeater-->
+                  <div>
+                    <!--begin::Form group-->
+                    <div class="form-group">
+                      <div formArrayName="productToAttribute" class="d-flex flex-column gap-3">
+                        <div *ngFor="let attribute of productToAttribute.controls; let i=index" [formGroupName]="i" class="form-group d-flex flex-wrap align-items-center gap-5">
+                          <!--begin::Select2-->
+                          <div class="w-100 w-md-200px">
+                              <mat-select class="form-control" formControlName="id" [compareWith]="compareAttribute">
+                                <mat-option *ngFor="let attributeOption of attributes" [value]="attributeOption.id">{{attributeOption.name}}</mat-option>
+                              </mat-select>
+                          </div>
+                          <!--end::Select2-->
+                          <!--begin::Input-->
+                          <input type="text" class="form-control mw-100 w-200px" formControlName="value" name="product_option_value" placeholder="Value" />
+                          <!--end::Input-->
+                          <span (click)="removeAttribute(attribute)" class="btn btn-sm btn-icon btn-light-danger">
+                            <i class="ki-duotone ki-cross fs-1">
+                              <span class="path1"></span>
+                              <span class="path2"></span>
+                            </i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <!--end::Form group-->
+                    <!--begin::Form group-->
+                    <div class="form-group mt-12">
+                      <span (click)="addNewAttribute()" class="btn btn-sm btn-light-primary">
+                        <i class="ki-duotone ki-plus fs-2"></i>Add another attribute</span>
+                    </div>
+                    <!--end::Form group-->
+                  </div>
+                  <!--end::Repeater-->
+                </div>
+                <!--end::Input group-->
+              </div>
+              <!--end::Card header-->
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--end::Tab content-->
+      <div class="d-flex justify-content-end">
+        <!--begin::Button-->
+        <a href="../../demo1/dist/apps/ecommerce/catalog/products.html" id="kt_ecommerce_add_product_cancel" class="btn btn-light me-5">Cancel</a>
+        <!--end::Button-->
+        <!--begin::Button-->
+        <button type="submit" id="kt_ecommerce_add_product_submit" class="btn btn-primary">
+          <span class="indicator-label" *ngIf="!inProgress">Save Changes</span>
+          <span class="indicator-progress" *ngIf="inProgress">Please wait...
+													<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+        </button>
+        <!--end::Button-->
+      </div>
+    </div>
+    <!--end::Main column-->
+  </form>
+  <!--end::Form-->
+</div>
